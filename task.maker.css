@@ -6,5 +6,125 @@
 
 body {
     height: 100vh;
-    background-color: red;
 }
+
+.container {
+    height: 100vh;
+    overflow: hidden;
+    background-image: url(../photos/kelly-sikkema-e0djo08-Ev8-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.header {
+    /* background-image: url(../photos/kelly-sikkema-e0djo08-Ev8-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat; */
+    display: grid;
+    align-items: center;
+    height: 10vh;
+    /* background-color: bisque; */
+}
+
+.main {
+    display: flex;
+    padding: 50px;
+    height: 80vh;
+}
+
+.generator {
+    color: bisque;
+    text-align: center;
+    border: 1px solid white;
+    width: 7vw;
+    margin-left: 3vw;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.generator:hover {
+    background-color: burlywood;
+}
+
+.column {
+    border: 1px solid white;
+    background-image: url(../photos/mylogo-removebg-preview.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 20%;
+    height: 100%;
+    margin: 1%;
+}
+
+.titre {
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    border-bottom: 1px solid burlywood;
+    height: 8%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal {
+    /* display: flex; */
+    background-color: grey;
+    /* padding: 1%; */
+    /* height: auto; */
+    left: 40%;
+    margin-top: 15%;
+    width: 20%;
+    color: white;
+    /* border: 1px solid white; */
+    position: absolute;
+    top: 0;
+    display: none;
+}
+
+.temps {
+    display: flex;
+    flex-direction: column;
+    /* margin: 1rem; */
+}
+
+
+/* textarea {
+    width: 90%;
+} */
+
+textarea:hover {
+    font-weight: bold;
+}
+
+.exit {
+    position: absolute;
+    right: 0;
+}
+
+.exit:hover {
+    /* font-size: 1.5rem; */
+    background-color: blue;
+}
+
+.modal-head {
+    /* text-align: center; */
+    height: 20%;
+    background-color: lightblue;
+}
+
+
+/* button {
+    /* margin-left: 4%; */
+
+
+/* width: 90%; */
+
+
+/* margin: 1rem; */
+
+
+/* } */

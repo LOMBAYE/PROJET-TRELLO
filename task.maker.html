@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -10,8 +10,47 @@
 </head>
 
 <body>
-    bbbbbbbbbbb eeeeaaaaaaaaaaaaaaaaa
-    <script src="task.maker.jss"></script>
+    <div class="container">
+        <div class="header">
+            <div class="generator">+Add a column</div>
+            <div class="generator">+New task</div>
+        </div>
+        <div class="main">
+            <!-- <div class="column">
+                <input type="text" class="titre" placeholder="Title...">
+                <div class="titre">Titre 1</div>
+               <div class="task">task</div> -->
+            <!-- </div> -->
+        </div>
+        <div class="modal">
+            <div class="modal-head">
+                <span>NEW TASK</span>
+                <span class="exit">X</span>
+            </div>
+            <form action="">
+                <span>Informations de la tache</span>
+                <div class="area">
+                    <span>Task</span>
+                    <textarea name="textarea"></textarea>
+                </div>
+                <div class="temps">
+                    <label for="calendar">Date</label>
+                    <input type="date" id="calendar" name="calendar">
+                </div>
+                <div class="temps">
+                    <label for="debut">Heure de debut</label>
+                    <input type="time" name="debut" id="debut">
+                </div>
+                <div class="temps">
+                    <label for="fin">Heure de fin</label>
+                    <input type="time" name="fin" id="fin">
+                </div>
+                <button>Ajouter</button>
+            </form>
+        </div>
+
+    </div>
+    <script src="task.maker.js"></script>
 </body>
 
 </html>
