@@ -6,27 +6,30 @@ const generators = document.querySelectorAll('.generator'),
     container = document.querySelector('container'),
     textarea = document.querySelector('textarea'),
     form = document.querySelector('form'),
-    btn = document.querySelector('button')
-
+    btn = document.querySelector('.ajouter')
 
 let nbr = 0;
+
+document.body.onload = () => {
+    generators[1].setAttribute('disabled', 'disabled')
+    generators[1].innerHTML = 'Add a column to start'
+}
+
 generators[0].addEventListener('click', function() {
     nbr++
     addColumn();
-    // if (nbr = 5) {
-    //     alert('okkkkk')
-    // }
 })
 generators[1].addEventListener('click', function() {
     document.querySelector('.modal').style.display = 'block';
     document.querySelector('.exit').addEventListener('click', () => {
         document.querySelector('.modal').style.display = 'none';
-
     })
 })
 
 
 function addColumn() {
+    generators[1].innerHTML = '+Add a task'
+    generators[1].removeAttribute('disabled')
     if (nbr < 6) {
         const html = document.createElement('div'),
             title = document.createElement('input'),
@@ -44,6 +47,21 @@ function addColumn() {
     }
 }
 form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
+    if (textarea.value === '') {
+        e.preventDefault();
+        textarea.style.color = 'red'
+        textarea.textContent = 'Obligatoire'
+        textarea.addEventListener('click', () => {
+            textarea.textContent = ''
+        })
+    } else {
+        addTask();
+    }
 })
+
+function addTask() {
+    const task = document.createElement('div');
+    task.classList.add('task')
+    alert(textarea.value)
+    console.log(task)
+}

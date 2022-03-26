@@ -88,13 +88,13 @@ form {
 .temps {
     display: flex;
     flex-direction: column;
+    cursor: pointer;
     /* margin: 1rem; */
 }
 
-
-/* textarea {
-    width: 90%;
-} */
+textarea {
+    cursor: pointer;
+}
 
 textarea:hover {
     font-weight: bold;
