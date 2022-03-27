@@ -21,9 +21,9 @@ function disableAddTaskButton(n) {
         generators[1].style.cursor = 'none'
         generators[1].innerHTML = 'First add a column to start'
     } else {
-        generators[1].innerHTML = 'Add a new task'
         generators[1].removeAttribute('disabled')
         generators[1].style.cursor = 'pointer'
+        generators[1].innerHTML = 'Add a new task'
     }
 }
 generators[0].addEventListener('click', function() {
@@ -51,6 +51,7 @@ function getColor(n) {
             return 'blue'
     }
 }
+let num = 0;
 
 function addColumn() {
     disableAddTaskButton(nbr)
@@ -70,46 +71,75 @@ function addColumn() {
         html.appendChild(title)
         html.appendChild(taches)
         console.log(nbr)
+        btn.addEventListener('click', (e) => {
+            if (textarea.value === '' || textarea.value === 'Obligatoire') {
+                e.preventDefault();
+                textarea.style.color = 'red'
+                textarea.textContent = 'Obligatoire'
+                textarea.addEventListener('click', () => {
+                    textarea.textContent = ''
+                    textarea.style.color = 'black'
+                })
+            } else {
+                num++
+                document.querySelector('.modal').style.display = 'none';
+                addTask(num);
+            }
+        })
         title.addEventListener('click', () => {
             alert('remove Column')
         })
     }
 }
-btn.addEventListener('click', (e) => {
-    if (textarea.value === '' || textarea.value === 'Obligatoire') {
 
-        // console.log(debut.value)
-        // console.log(fin.value)
-        e.preventDefault();
-        textarea.style.color = 'red'
-        textarea.textContent = 'Obligatoire'
-        textarea.addEventListener('click', () => {
-            textarea.textContent = ''
-            textarea.style.color = 'black'
-        })
-    } else {
-        console.log(jour.value)
-        console.log(debut.value)
-        console.log(fin.value)
-        console.log(textarea.value)
-        console.log(new Date())
-        const note = document.createElement('div');
+// btn.addEventListener('click', (e) => {
+//     if (textarea.value === '' || textarea.value === 'Obligatoire') {
+//         e.preventDefault();
+//         textarea.style.color = 'red'
+//         textarea.textContent = 'Obligatoire'
+//         textarea.addEventListener('click', () => {
+//             textarea.textContent = ''
+//             textarea.style.color = 'black'
+//         })
+//     } else {
+//         num++
+//         document.querySelector('.modal').style.display = 'none';
+//         addTask(num);
+//     }
+// })
 
+function addTask(n) {
+    console.log(jour.value)
+    console.log(debut.value)
+    console.log(fin.value)
+    console.log(textarea.value)
+        // console.log(new Date())
+    const note = document.createElement('div');
+    const moveToLeft = document.createElement('span')
+    const taskName = document.createElement('span')
+    const moveToRight = document.createElement('span')
 
-        console.log(note)
+    moveToLeft.innerHTML = '<<'
+    moveToRight.innerHTML = '>>'
+    taskName.innerHTML = textarea.value
+    note.classList.add('note')
+    note.setAttribute('id', 'note' + n)
 
-        note.classList.add('note')
-        main.appendChild(note)
-        document.querySelector('.modal').style.display = 'none';
+    console.log(moveToLeft)
+    console.log(taskName)
+    console.log(moveToRight)
 
-        // addTask();
-    }
-})
+    note.appendChild(moveToLeft)
+    note.appendChild(taskName)
+    note.appendChild(moveToRight)
 
-// function addTask() {
-//     // const note = document.createElement('div');
-//     // note.classList.add('note')
-//     // task.appendChild(note)
-//     // console.log(note)
-//     alert(textarea.value)
-// }
+    // console.log(forwards)
+    console.log(note)
+        // note.style.color = 'blue'
+    document.querySelector('#tache_1').appendChild(note)
+        // const note = document.createElement('div');
+        // note.classList.add('note')
+        // task.appendChild(note)
+        // console.log(note)
+    alert(textarea.value)
+}

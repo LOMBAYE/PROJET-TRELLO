@@ -48,6 +48,26 @@ body {
     border-radius: 5px;
 }
 
+.note {
+    display: grid;
+    /* flex-direction: column; */
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
+    /* grid-template-rows: repeat(auto-fill, minmax(100%, max-content)); */
+    color: white;
+    border: 1px solid white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 1;
+    width: 100%;
+    background-color: red;
+}
+
+
+/* #tache_1 {
+    z-index: index 0;
+} */
+
 .generator:hover {
     background-color: white;
 }
