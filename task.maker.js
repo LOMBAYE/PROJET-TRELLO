@@ -5,6 +5,9 @@ const generators = document.querySelectorAll('.generator'),
     main = document.querySelector('.main'),
     container = document.querySelector('container'),
     textarea = document.querySelector('textarea'),
+    debut = document.querySelector('#debut'),
+    fin = document.querySelector('#fin'),
+    jour = document.querySelector('.jour'),
     form = document.querySelector('form'),
     btn = document.querySelector('.ajouter')
 
@@ -33,35 +36,51 @@ function addColumn() {
     if (nbr < 6) {
         const html = document.createElement('div'),
             title = document.createElement('input'),
-            task = document.createElement('div')
+            taches = document.createElement('div')
         html.classList.add('column')
         title.classList.add('titre')
         title.setAttribute('placeholder', 'Title of the list...')
             // title.setAttribute('disabled', 'disabled')
-        task.classList.add('task')
+        taches.classList.add('task')
 
         main.appendChild(html)
         html.appendChild(title)
-        html.appendChild(task)
+        html.appendChild(taches)
         console.log(nbr)
     }
 }
-form.addEventListener('submit', (e) => {
-    if (textarea.value === '') {
+btn.addEventListener('click', (e) => {
+    if (textarea.value === '' || textarea.value === 'Obligatoire') {
+        console.log(jour)
+            // console.log(debut.value)
+            // console.log(fin.value)
         e.preventDefault();
         textarea.style.color = 'red'
         textarea.textContent = 'Obligatoire'
         textarea.addEventListener('click', () => {
             textarea.textContent = ''
+            textarea.style.color = 'black'
         })
     } else {
-        addTask();
+
+        console.log(textarea.value)
+        const note = document.createElement('div');
+
+
+        console.log(note)
+
+        note.classList.add('note')
+        task.appendChild(note)
+        document.querySelector('.modal').style.display = 'none';
+
+        // addTask();
     }
 })
 
-function addTask() {
-    const task = document.createElement('div');
-    task.classList.add('task')
-    alert(textarea.value)
-    console.log(task)
-}
+// function addTask() {
+//     // const note = document.createElement('div');
+//     // note.classList.add('note')
+//     // task.appendChild(note)
+//     // console.log(note)
+//     alert(textarea.value)
+// }

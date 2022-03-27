@@ -22,7 +22,9 @@ body {
     background-size: cover;
     background-repeat: no-repeat; */
     display: grid;
+    grid-template-columns: 1fr 1.5fr;
     align-items: center;
+    /* justify-content: space-between; */
     height: 10vh;
     /* background-color: bisque; */
 }
@@ -34,9 +36,9 @@ body {
 }
 
 .generator {
-    color: bisque;
+    color: white;
     text-align: center;
-    border: 1px solid white;
+    border: 1px solid;
     width: 7vw;
     margin-left: 3vw;
     cursor: pointer;
