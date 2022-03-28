@@ -58,24 +58,35 @@ function addColumn() {
     if (nbr < 6) {
         const html = document.createElement('div'),
             title = document.createElement('input'),
-            taches = document.createElement('div')
+            delButton = document.createElement('span')
+        taches = document.createElement('div')
         html.classList.add('column')
         html.setAttribute('id', 'column_' + nbr)
         title.classList.add('titre')
         title.setAttribute('id', 'title_' + nbr)
-        title.setAttribute('placeholder', 'Title of the list...')
+        title.setAttribute('placeholder', 'Title....' + nbr)
+        delButton.classList.add('delete')
+        delButton.setAttribute('id', 'delButton_' + nbr)
         taches.classList.add('task')
         taches.setAttribute('id', 'tache_' + nbr)
         html.style.backgroundColor = getColor(nbr)
+        delButton.innerHTML = 'X'
+        delButton.style.backgroundColor = getColor(3)
         html.appendChild(title)
         html.appendChild(taches)
+        taches.appendChild(delButton)
         main.appendChild(html)
 
         // console.log(nbr)
+        console.log(delButton)
+        console.log(html)
 
-        title.addEventListener('click', () => {
-            console.log('remove column')
-                // alert('remove Column')
+        delButton.addEventListener('click', () => {
+            html.remove()
+            nbr--
+            // deleteColumn(nbr)
+            // console.log('remove column')
+            // alert('remove Column')
         })
     }
 }
@@ -140,6 +151,29 @@ function addTask(n) {
         if (main.childElementCount > 1) {
             document.querySelector('#tache_2').removeChild(note)
             document.querySelector('#tache_1').appendChild(note)
+
         }
     })
+}
+
+function deleteColumn(n) {
+    var target = document.getElementById('column_' + n)
+    setTimeout(function() {
+        target.remove();
+    }, 2000)
+    darken('column_' + n);
+}
+
+function darken(idtarget) {
+    var target = document.getElementById(idtarget);
+    var effect = setInterval(function() {
+        if (!target.style.opacity) {
+            target.style.opacity = 1;
+        }
+        if (target.style.opacity > 0) {
+            target.style.opacity = 0.3;
+        } else {
+            clearInterval(effect);
+        }
+    }, 200)
 }
