@@ -24,35 +24,35 @@
         </div>
         <div class="modal">
             <div class="couche">
-                <div class="modal-head">
-                    <span>NEW TASK</span>
-                    <span class="exit">X</span>
+                <div class="formulaire">
+                    <div class="modal-head">
+                        <span>NEW TASK</span>
+                        <span class="exit">X</span>
+                    </div>
+                    <form action="">
+                        <span class="info">Informations de la tache</span>
+                        <textarea name="textarea" placeholder="Ajouter une nouvelle tache"></textarea>
+                        <div class="temps">
+                            <label for="jour">Date</label>
+                            <input type="date" class="jour" name="jour">
+                        </div>
+                        <div class="temps">
+                            <label for="debut">Heure de debut</label>
+                            <input type="time" name="debut" id="debut">
+                        </div>
+                        <div class="temps">
+                            <label for="fin">Heure de fin</label>
+                            <input type="time" name="fin" id="fin">
+                        </div>
+                        <button class="ajouter" type="button">Ajouter</button>
+                    </form>
                 </div>
-                <form action="">
-                    <span>Informations de la tache</span>
-                    <div class="area">
-                        <span>Task</span>
-                        <textarea name="textarea"></textarea>
-                    </div>
-                    <div class="temps">
-                        <label for="jour">Date</label>
-                        <input type="date" class="jour" name="jour">
-                    </div>
-                    <div class="temps">
-                        <label for="debut">Heure de debut</label>
-                        <input type="time" name="debut" id="debut">
-                    </div>
-                    <div class="temps">
-                        <label for="fin">Heure de fin</label>
-                        <input type="time" name="fin" id="fin">
-                    </div>
-                    <button class="ajouter" type="button">Ajouter</button>
-                </form>
             </div>
         </div>
 
     </div>
     <script src="task.maker.js"></script>
+    <script src="fonctions.script.js"></script>
 </body>
 
 </html>
