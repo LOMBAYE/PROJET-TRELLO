@@ -67,46 +67,33 @@ function addColumn() {
         taches.classList.add('task')
         taches.setAttribute('id', 'tache_' + nbr)
         html.style.backgroundColor = getColor(nbr)
-        main.appendChild(html)
         html.appendChild(title)
         html.appendChild(taches)
-        console.log(nbr)
-        btn.addEventListener('click', (e) => {
-            if (textarea.value === '' || textarea.value === 'Obligatoire') {
-                e.preventDefault();
-                textarea.style.color = 'red'
-                textarea.textContent = 'Obligatoire'
-                textarea.addEventListener('click', () => {
-                    textarea.textContent = ''
-                    textarea.style.color = 'black'
-                })
-            } else {
-                num++
-                document.querySelector('.modal').style.display = 'none';
-                addTask(num);
-            }
-        })
+        main.appendChild(html)
+
+        // console.log(nbr)
+
         title.addEventListener('click', () => {
-            alert('remove Column')
+            console.log('remove column')
+                // alert('remove Column')
         })
     }
 }
-
-// btn.addEventListener('click', (e) => {
-//     if (textarea.value === '' || textarea.value === 'Obligatoire') {
-//         e.preventDefault();
-//         textarea.style.color = 'red'
-//         textarea.textContent = 'Obligatoire'
-//         textarea.addEventListener('click', () => {
-//             textarea.textContent = ''
-//             textarea.style.color = 'black'
-//         })
-//     } else {
-//         num++
-//         document.querySelector('.modal').style.display = 'none';
-//         addTask(num);
-//     }
-// })
+btn.addEventListener('click', (e) => {
+    if (textarea.value === '' || textarea.value === 'Obligatoire') {
+        e.preventDefault();
+        textarea.style.color = getColor(3)
+        textarea.textContent = 'Obligatoire'
+        textarea.addEventListener('click', () => {
+            textarea.textContent = ''
+            textarea.style.color = getColor(2)
+        })
+    } else {
+        num++
+        document.querySelector('.modal').style.display = 'none';
+        addTask(num);
+    }
+})
 
 function addTask(n) {
     console.log(jour.value)
@@ -115,31 +102,44 @@ function addTask(n) {
     console.log(textarea.value)
         // console.log(new Date())
     const note = document.createElement('div');
-    const moveToLeft = document.createElement('span')
+    const backwards = document.createElement('span')
     const taskName = document.createElement('span')
-    const moveToRight = document.createElement('span')
+    const forwards = document.createElement('span')
+    forwards.setAttribute('class', 'forwards')
+    backwards.setAttribute('class', 'backwards')
+    taskName.setAttribute('class', 'taskName')
 
-    moveToLeft.innerHTML = '<<'
-    moveToRight.innerHTML = '>>'
+    forwards.style.cursor = 'pointer'
+    backwards.style.cursor = 'pointer'
+
+
+    backwards.innerHTML = '<<'
+    forwards.innerHTML = '>>'
     taskName.innerHTML = textarea.value
     note.classList.add('note')
     note.setAttribute('id', 'note' + n)
+    backwards.setAttribute('id', 'backwards' + n)
+    taskName.setAttribute('id', 'taskName' + n)
+    forwards.setAttribute('id', 'forwards' + n)
 
-    console.log(moveToLeft)
-    console.log(taskName)
-    console.log(moveToRight)
 
-    note.appendChild(moveToLeft)
+    note.appendChild(backwards)
     note.appendChild(taskName)
-    note.appendChild(moveToRight)
+    note.appendChild(forwards)
 
-    // console.log(forwards)
-    console.log(note)
-        // note.style.color = 'blue'
     document.querySelector('#tache_1').appendChild(note)
-        // const note = document.createElement('div');
-        // note.classList.add('note')
-        // task.appendChild(note)
-        // console.log(note)
-    alert(textarea.value)
+
+    forwards.addEventListener('click', () => {
+        if (main.childElementCount > 1) {
+            document.querySelector('#tache_1').removeChild(note)
+            document.querySelector('#tache_2').appendChild(note)
+        }
+
+    })
+    backwards.addEventListener('click', () => {
+        if (main.childElementCount > 1) {
+            document.querySelector('#tache_2').removeChild(note)
+            document.querySelector('#tache_1').appendChild(note)
+        }
+    })
 }

@@ -63,6 +63,10 @@ body {
     background-color: red;
 }
 
+.note:last-child {
+    justify-self: end;
+}
+
 
 /* #tache_1 {
     z-index: index 0;
