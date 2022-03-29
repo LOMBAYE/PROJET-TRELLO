@@ -12,9 +12,9 @@ const generators = document.querySelectorAll('.generator'),
     btn = document.querySelector('.ajouter')
 
 let nbr = 0;
+let num = 0;
 
 document.body.onload = () => disableAddTaskButton(nbr)
-
 
 generators[0].addEventListener('click', function() {
     nbr++
@@ -28,7 +28,6 @@ generators[1].addEventListener('click', function() {
 })
 
 
-let num = 0;
 
 function addColumn() {
     disableAddTaskButton(nbr)
@@ -55,8 +54,8 @@ function addColumn() {
         main.appendChild(html)
 
         // console.log(nbr)
-        console.log(delButton)
-        console.log(html)
+        // console.log(delButton)
+        // console.log(html)
 
         delButton.addEventListener('click', () => {
             html.remove()
@@ -82,10 +81,16 @@ btn.addEventListener('click', (e) => {
         addTask(num);
     }
 })
+const aujourdhui = new Date()
+console.log(aujourdhui)
 
 function addTask(n) {
-    console.log(jour.value)
-    console.log(debut.value)
+    compareTimes(debut.value, fin.value)
+        // console.log(jour.value)
+        // var d = (debut.value).getTime()
+        // console.log(d)
+        // console.log(d.getTime())
+        // console.log(compareDates(debut, fin))
     console.log(fin.value)
     console.log(textarea.value)
         // console.log(new Date())
