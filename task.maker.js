@@ -10,7 +10,8 @@ const generators = document.querySelectorAll('.generator'),
     jour = document.querySelector('.jour'),
     form = document.querySelector('form'),
     btn = document.querySelector('.ajouter'),
-    btn_toggle = document.querySelector('.toggle')
+    btn_toggle = document.querySelector('.toggle'),
+    removedTasks = document.querySelector('.removedTasks')
 
 let nbr = 0;
 let num = 0;
@@ -32,7 +33,9 @@ generators[1].addEventListener('click', function() {
 
 function addColumn() {
     disableAddTaskButton(nbr)
-    if (nbr < 6) {
+    if (main.childElementCount < 5) {
+
+        // if (nbr < 6) {
         const html = document.createElement('div'),
             title = document.createElement('input'),
             delButton = document.createElement('span')
@@ -48,7 +51,7 @@ function addColumn() {
         taches.setAttribute('id', 'tache_' + nbr)
         html.style.backgroundColor = getColor(nbr)
         delButton.innerHTML = 'X'
-        delButton.style.backgroundColor = getColor(3)
+        delButton.style.backgroundColor = getColor(2)
         html.appendChild(title)
         html.appendChild(taches)
         taches.appendChild(delButton)
@@ -58,14 +61,17 @@ function addColumn() {
         // console.log(delButton)
         // console.log(html)
 
+
         delButton.addEventListener('click', () => {
             html.remove()
+                // deleteCol()
+                // deleteColumn(main.childElementCount)
             nbr--
-            // deleteColumn(nbr)
             // console.log('remove column')
             // alert('remove Column')
         })
     }
+    // }
 }
 btn.addEventListener('click', (e) => {
     if (textarea.value === '' || textarea.value === 'Obligatoire') {
@@ -102,7 +108,7 @@ function addTask(n) {
     forwards.setAttribute('class', 'forwards')
     backwards.setAttribute('class', 'backwards')
     taskName.setAttribute('class', 'taskName')
-
+        // taskName.style.boxSizing = 'border-box'
     forwards.style.cursor = 'pointer'
     backwards.style.cursor = 'pointer'
 
@@ -110,6 +116,7 @@ function addTask(n) {
     backwards.innerHTML = '<<'
     forwards.innerHTML = '>>'
     taskName.innerHTML = textarea.value
+    taskName.style.cursor = 'pointer'
     note.classList.add('note')
     note.setAttribute('id', 'note' + n)
     backwards.setAttribute('id', 'backwards' + n)
@@ -121,15 +128,32 @@ function addTask(n) {
     note.appendChild(taskName)
     note.appendChild(forwards)
 
+
     document.querySelector('#tache_1').appendChild(note)
 
     cpt = 1
 
+    taskName.addEventListener('dblclick', function() {
+        document.querySelector('#tache_1').removeChild(note)
+        removedTasks.appendChild(note)
+        backwards.style.visibility = 'hidden'
+        forwards.style.visibility = 'hidden'
+        taskName.addEventListener('dblclick', () => {
+            document.querySelector('#tache_1').appendChild(note)
+            backwards.style.visibility = 'visible'
+            forwards.style.visibility = 'visible'
+        })
+    })
+    var j = 1;
+    const columnAll = document.querySelectorAll('.column')
+
     forwards.addEventListener('click', () => {
-        if (main.childElementCount > 1) {
-            document.querySelector('#tache_1').removeChild(note)
-            document.querySelector('#tache_2').appendChild(note)
-        }
+        columnAll[j].lastChild.appendChild(note)
+            // if (main.childElementCount > 1) {
+            //     document.querySelector('#tache_1').removeChild(note)
+            //     document.querySelector('#tache_2').appendChild(note)
+            // }
+        j++
 
     })
     backwards.addEventListener('click', () => {

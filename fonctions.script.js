@@ -15,18 +15,40 @@ function getColor(n) {
         case 1:
             return ''
         case 2:
-            return 'black'
-        case 3:
             return 'red'
+        case 3:
+            return 'black'
         case 4:
             return 'green'
         case 5:
             return 'blue'
+        default:
+            return 'yellow'
     }
 }
 // 
+function ConfirmerSuppression() {
+
+}
+
+function deleteCol() {
+    // var target = document.getElementById('column_' + n)
+    // var partieEntiere = parseInt(target)
+
+    // return partieEntiere
+
+    setTimeout(function() {
+            document.querySelector('.delete').parent.parentElement.remove();
+        }, 2000)
+        // darken('column_' + n);
+}
+
 function deleteColumn(n) {
     var target = document.getElementById('column_' + n)
+        // var partieEntiere = parseInt(target)
+
+    // return partieEntiere
+
     setTimeout(function() {
         target.remove();
     }, 2000)
@@ -90,4 +112,8 @@ function compareDates(from, to) {
 
     //Return the result of the comparison
     return fromDate < toDate;
+}
+
+function rafraichir() {
+
 }
