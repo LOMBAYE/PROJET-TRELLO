@@ -43,9 +43,10 @@ function deleteCol() {
         // darken('column_' + n);
 }
 
-function deleteColumn(n) {
-    var target = document.getElementById('column_' + n)
-        // var partieEntiere = parseInt(target)
+function deleteColumn() {
+
+    // var target = document.getElementById('column_' + n)
+    // var partieEntiere = parseInt(target)
 
     // return partieEntiere
 
@@ -70,15 +71,11 @@ function darken(idtarget) {
 }
 // 
 function moveElementTo(element, from, to) {
-
     //Element
     //position actuelle
     //position finale
-    // var el = document.getElementById('element')
     from.removeChild(element)
     element.appendChild(to)
-
-
 }
 
 function verifyTime(date1, date2) {
@@ -115,5 +112,8 @@ function compareDates(from, to) {
 }
 
 function rafraichir() {
-
+    const allTitle = document.querySelectorAll('.titre')
+    allTitle.forEach((element, i) => {
+        element.placeholder = 'Title....' + (i + 1)
+    })
 }

@@ -21,6 +21,7 @@ document.body.onload = () => disableAddTaskButton(nbr)
 generators[0].addEventListener('click', function() {
     nbr++
     addColumn();
+    rafraichir()
 })
 generators[1].addEventListener('click', function() {
     document.querySelector('.modal').style.display = 'block';
@@ -57,21 +58,14 @@ function addColumn() {
         taches.appendChild(delButton)
         main.appendChild(html)
 
-        // console.log(nbr)
-        // console.log(delButton)
-        // console.log(html)
-
-
-        delButton.addEventListener('click', () => {
-            html.remove()
-                // deleteCol()
-                // deleteColumn(main.childElementCount)
-            nbr--
-            // console.log('remove column')
-            // alert('remove Column')
+        //    closest p or div or input might be useful
+        delButton.addEventListener('click', (e) => {
+            setTimeout(() => {
+                e.target.parentElement.parentElement.remove()
+                rafraichir()
+            }, 1000)
         })
     }
-    // }
 }
 btn.addEventListener('click', (e) => {
     if (textarea.value === '' || textarea.value === 'Obligatoire') {
@@ -131,19 +125,7 @@ function addTask(n) {
 
     document.querySelector('#tache_1').appendChild(note)
 
-    cpt = 1
 
-    taskName.addEventListener('dblclick', function() {
-        document.querySelector('#tache_1').removeChild(note)
-        removedTasks.appendChild(note)
-        backwards.style.visibility = 'hidden'
-        forwards.style.visibility = 'hidden'
-        taskName.addEventListener('dblclick', () => {
-            document.querySelector('#tache_1').appendChild(note)
-            backwards.style.visibility = 'visible'
-            forwards.style.visibility = 'visible'
-        })
-    })
     var j = 1;
     const columnAll = document.querySelectorAll('.column')
 
@@ -156,14 +138,28 @@ function addTask(n) {
         j++
 
     })
+    console.log((backwards.parentElement.id))
     backwards.addEventListener('click', () => {
+        // console.log(backwards.id)
         if (main.childElementCount > 1) {
             document.querySelector('#tache_2').removeChild(note)
             document.querySelector('#tache_1').appendChild(note)
-
         }
     })
 }
 btn_toggle.addEventListener('click', () => {
     document.querySelector('.corbeille').style.display = 'block'
+
+    // suppression tache
+    taskName.addEventListener('dblclick', function() {
+        document.querySelector('#tache_1').removeChild(note)
+        removedTasks.appendChild(note)
+        backwards.style.visibility = 'hidden'
+        forwards.style.visibility = 'hidden'
+            // taskName.addEventListener('dblclick', () => {
+            //     document.querySelector('#tache_1').appendChild(note)
+            //     backwards.style.visibility = 'visible'
+            //     forwards.style.visibility = 'visible'
+            // })
+    })
 })
