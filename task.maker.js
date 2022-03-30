@@ -9,7 +9,8 @@ const generators = document.querySelectorAll('.generator'),
     fin = document.querySelector('#fin'),
     jour = document.querySelector('.jour'),
     form = document.querySelector('form'),
-    btn = document.querySelector('.ajouter')
+    btn = document.querySelector('.ajouter'),
+    btn_toggle = document.querySelector('.toggle')
 
 let nbr = 0;
 let num = 0;
@@ -122,6 +123,8 @@ function addTask(n) {
 
     document.querySelector('#tache_1').appendChild(note)
 
+    cpt = 1
+
     forwards.addEventListener('click', () => {
         if (main.childElementCount > 1) {
             document.querySelector('#tache_1').removeChild(note)
@@ -137,3 +140,6 @@ function addTask(n) {
         }
     })
 }
+btn_toggle.addEventListener('click', () => {
+    document.querySelector('.corbeille').style.display = 'block'
+})

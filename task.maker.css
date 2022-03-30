@@ -37,14 +37,21 @@ body {
 
 .corbeille {
     border: 1px solid;
-    right: -100px;
+    width: auto;
+    display: grid;
+    right: 50px;
     position: absolute;
-    color: blue;
+    color: white;
+    display: none;
 }
 
 .toggle:hover~.corbeille {
-    right: 50px;
-    background-color: yellow;
+    right: 100px;
+    transform: scale(1.3);
+}
+
+.removedTasks {
+    display: grid;
 }
 
 
