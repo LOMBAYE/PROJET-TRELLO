@@ -35,8 +35,6 @@ generators[1].addEventListener('click', function() {
 function addColumn() {
     disableAddTaskButton(nbr)
     if (main.childElementCount < 5) {
-
-        // if (nbr < 6) {
         const html = document.createElement('div'),
             title = document.createElement('input'),
             delButton = document.createElement('span')
@@ -65,36 +63,34 @@ function addColumn() {
                 rafraichir()
             }, 1000)
         })
+
     }
 }
 btn.addEventListener('click', (e) => {
-    if (textarea.value === '' || textarea.value === 'Obligatoire') {
+    // var dd = Date.parse('jour.value 10:20:45') > Date.parse('jour.value 5:10:10')
+    const heured = Date.parse(`${jour.value} ${debut.value}`)
+    const now = Date.parse(new Date())
+    var heuref = Date.parse(`${jour.value} ${fin.value}`)
+        // message d alerte si heure de fin arrive 
+
+    if (textarea.value === '' || textarea.value === 'Obligatoire' || heured > heuref || now > heured || jour.value === '') {
         e.preventDefault();
-        textarea.style.color = getColor(3)
-        textarea.textContent = 'Obligatoire'
-        textarea.addEventListener('click', () => {
-            textarea.textContent = ''
-            textarea.style.color = getColor(2)
-        })
     } else {
         num++
         document.querySelector('.modal').style.display = 'none';
         addTask(num);
     }
+    setInterval(function() {
+            console.log((heured - now))
+
+        }, 1000)
+        // setTimeout(() => {
+        //     console.log((heured - now))
+        // }, 1000)
 })
-const aujourdhui = new Date()
-console.log(aujourdhui)
 
 function addTask(n) {
-    compareTimes(debut.value, fin.value)
-        // console.log(jour.value)
-        // var d = (debut.value).getTime()
-        // console.log(d)
-        // console.log(d.getTime())
-        // console.log(compareDates(debut, fin))
-    console.log(fin.value)
-    console.log(textarea.value)
-        // console.log(new Date())
+
     const note = document.createElement('div');
     const backwards = document.createElement('span')
     const taskName = document.createElement('span')
@@ -106,7 +102,6 @@ function addTask(n) {
     forwards.style.cursor = 'pointer'
     backwards.style.cursor = 'pointer'
 
-
     backwards.innerHTML = '<<'
     forwards.innerHTML = '>>'
     taskName.innerHTML = textarea.value
@@ -117,49 +112,45 @@ function addTask(n) {
     taskName.setAttribute('id', 'taskName' + n)
     forwards.setAttribute('id', 'forwards' + n)
 
-
     note.appendChild(backwards)
     note.appendChild(taskName)
     note.appendChild(forwards)
 
-
     document.querySelector('#tache_1').appendChild(note)
 
 
-    var j = 1;
-    const columnAll = document.querySelectorAll('.column')
-
-    forwards.addEventListener('click', () => {
-        columnAll[j].lastChild.appendChild(note)
-            // if (main.childElementCount > 1) {
-            //     document.querySelector('#tache_1').removeChild(note)
-            //     document.querySelector('#tache_2').appendChild(note)
-            // }
-        j++
-
+    forwards.addEventListener('click', (e) => {
+        var hj = e.target.parentElement.parentElement.parentElement.id,
+            idSplt = hj.split('_'),
+            idEntier = parseInt(idSplt[1])
+        var suivant = document.getElementById('column_' + (idEntier + 1))
+        suivant.lastChild.appendChild((note))
     })
-    console.log((backwards.parentElement.id))
-    backwards.addEventListener('click', () => {
-        // console.log(backwards.id)
-        if (main.childElementCount > 1) {
-            document.querySelector('#tache_2').removeChild(note)
-            document.querySelector('#tache_1').appendChild(note)
-        }
+    backwards.addEventListener('click', (e) => {
+        var hj = e.target.parentElement.parentElement.parentElement.id,
+            idSplt = hj.split('_'),
+            idEntier = parseInt(idSplt[1]),
+            precedent = document.getElementById('column_' + (idEntier - 1))
+        precedent.lastChild.appendChild((note))
     })
-}
-btn_toggle.addEventListener('click', () => {
-    document.querySelector('.corbeille').style.display = 'block'
 
     // suppression tache
-    taskName.addEventListener('dblclick', function() {
-        document.querySelector('#tache_1').removeChild(note)
-        removedTasks.appendChild(note)
-        backwards.style.visibility = 'hidden'
-        forwards.style.visibility = 'hidden'
+    taskName.addEventListener('dblclick', function(e) {
+        console.log(e.target.parentElement)
+            // alert('ojjjjjjjjjjj')
+            // document.querySelector('#tache_1').removeChild(note)
+            // removedTasks.appendChild(note)
+            // backwards.style.visibility = 'hidden'
+            // forwards.style.visibility = 'hidden'
             // taskName.addEventListener('dblclick', () => {
             //     document.querySelector('#tache_1').appendChild(note)
             //     backwards.style.visibility = 'visible'
             //     forwards.style.visibility = 'visible'
             // })
     })
+}
+
+
+btn_toggle.addEventListener('click', () => {
+    document.querySelector('.corbeille').style.display = 'block'
 })

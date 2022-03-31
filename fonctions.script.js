@@ -94,6 +94,13 @@ function compareTimes(debut, fin) {
     return splitFin - splitDep
 }
 
+
+function compareTimes() {
+    var debut = debut.value.split('-'),
+        fin = fin.value.split('-')
+    console.log(debut, fin)
+}
+
 function compareDates(from, to) {
     //Get the text in the elements
     var from = document.getElementById('from').textContent;
@@ -113,7 +120,16 @@ function compareDates(from, to) {
 
 function rafraichir() {
     const allTitle = document.querySelectorAll('.titre')
+    const allColumn = document.querySelectorAll('.column')
+
     allTitle.forEach((element, i) => {
         element.placeholder = 'Title....' + (i + 1)
+        nbr = (i + 1)
     })
+    allColumn.forEach((element, i) => {
+        element.id = 'column_' + (i + 1)
+        nbr = (i + 1)
+    })
+
+
 }
