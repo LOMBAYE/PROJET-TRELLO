@@ -58,10 +58,18 @@ function addColumn() {
 
         //    closest p or div or input might be useful
         delButton.addEventListener('click', (e) => {
-            setTimeout(() => {
-                e.target.parentElement.parentElement.remove()
-                rafraichir()
-            }, 1000)
+            if (e.target.parentElement.parentElement.id === 'column_1') {
+                if (main.childElementCount > 1) {
+                    e.preventDefault();
+                } else {
+                    e.target.parentElement.parentElement.remove()
+                }
+            } else {
+                setTimeout(() => {
+                    e.target.parentElement.parentElement.remove()
+                    rafraichir()
+                }, 1000)
+            }
         })
 
     }
@@ -73,20 +81,17 @@ btn.addEventListener('click', (e) => {
     var heuref = Date.parse(`${jour.value} ${fin.value}`)
         // message d alerte si heure de fin arrive 
 
-    if (textarea.value === '' || textarea.value === 'Obligatoire' || heured > heuref || now > heured || jour.value === '') {
+    if (textarea.value === '' || heured > heuref || now > heured || jour.value === '') {
         e.preventDefault();
     } else {
         num++
         document.querySelector('.modal').style.display = 'none';
         addTask(num);
     }
-    setInterval(function() {
-            console.log((heured - now))
 
-        }, 1000)
-        // setTimeout(() => {
-        //     console.log((heured - now))
-        // }, 1000)
+    setTimeout(() => {
+        console.log((heured - now))
+    }, 1000)
 })
 
 function addTask(n) {

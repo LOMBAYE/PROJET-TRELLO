@@ -118,6 +118,14 @@ small {
     margin: 1%;
 }
 
+.column:first-child .task .note .backwards {
+    visibility: hidden;
+}
+
+.column:last-child .task .note .forwards {
+    visibility: hidden;
+}
+
 .titre {
     text-align: center;
     width: 100%;
