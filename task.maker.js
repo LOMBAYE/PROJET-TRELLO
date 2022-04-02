@@ -75,11 +75,10 @@ function addColumn() {
     }
 }
 btn.addEventListener('click', (e) => {
-    // var dd = Date.parse('jour.value 10:20:45') > Date.parse('jour.value 5:10:10')
+    // validite des horaires choisis
     const heured = Date.parse(`${jour.value} ${debut.value}`)
     const now = Date.parse(new Date())
     var heuref = Date.parse(`${jour.value} ${fin.value}`)
-        // message d alerte si heure de fin arrive 
 
     if (textarea.value === '' || heured > heuref || now > heured || jour.value === '') {
         e.preventDefault();
@@ -88,51 +87,11 @@ btn.addEventListener('click', (e) => {
         document.querySelector('.modal').style.display = 'none';
         addTask(num);
     }
-    // tache devient si heure de depart arrive
-
-    var hDebut = heured - now
+    //  alerte si heure de debut ou fin arrive 
+    var alerteDebut = heured - now
     var timeIsUp = heuref - now
-
-
-    // setTimeout(() => {
-    //     document.querySelectorAll('.note').forEach(element => {
-    //         element.style.backgroundColor = 'green'
-    //     });
-    //     clearTimeout(hDebut)
-    // }, hDebut);
-    // setTimeout(() => {
-    //     document.querySelectorAll('.note').forEach(element => {
-    //         element.style.backgroundColor = 'grey'
-    //     });
-    //     clearTimeout(hFin)
-    // }, timeIsUp);
-
-    // document.querySelectorAll('.note').forEach((el) => {
-
-
-    //     setTimeout(() => {
-    //         // hDebut -= 1000
-
-    //         // if (hDebut == 0) {
-    //         el.style.backgroundColor = 'green'
-    //             // clearInterval(rebours)
-    //             // }
-
-    //     }, hDebut);
-    //     setTimeout(() => {
-    //         // timeIsUp -= 1000
-    //         // if (timeIsUp == 0) {
-    //         el.style.backgroundColor = 'grey'
-    //             // clearInterval(reboursFin)
-    //             // }
-    //     }, timeIsUp);
-    // })
-    var vert = 'green',
-        gris = 'grey'
-    document.querySelectorAll('.note').forEach(element => addTimeoutEvent(element, hDebut, vert))
-    document.querySelectorAll('.note').forEach(element => addTimeoutEvent(element, timeIsUp, gris))
-
-    // addTimeoutEvent(document.querySelector('.note'), hDebut)
+    addTimeoutEvent(document.getElementById('note' + num), alerteDebut, 'green')
+    addTimeoutEvent(document.getElementById('note' + num), timeIsUp, 'grey')
 })
 
 function addTask(n) {
@@ -143,7 +102,6 @@ function addTask(n) {
     forwards.setAttribute('class', 'forwards')
     backwards.setAttribute('class', 'backwards')
     taskName.setAttribute('class', 'taskName')
-        // taskName.style.boxSizing = 'border-box'
     forwards.style.cursor = 'pointer'
     backwards.style.cursor = 'pointer'
 
@@ -179,22 +137,18 @@ function addTask(n) {
     })
 
     // suppression tache
-    taskName.addEventListener('dblclick', function(e) {
-        console.log(e.target.parentElement)
-            // alert('ojjjjjjjjjjj')
-            // document.querySelector('#tache_1').removeChild(note)
-            // removedTasks.appendChild(note)
-            // backwards.style.visibility = 'hidden'
-            // forwards.style.visibility = 'hidden'
-            // taskName.addEventListener('dblclick', () => {
-            //     document.querySelector('#tache_1').appendChild(note)
-            //     backwards.style.visibility = 'visible'
-            //     forwards.style.visibility = 'visible'
-            // })
+    document.getElementById('note' + num).addEventListener('dblclick', () => {
+        removedTasks.appendChild(document.getElementById('note' + num))
+        forwards.style.visibility = 'hidden'
+        backwards.style.visibility = 'hidden'
     })
 }
 
-
 btn_toggle.addEventListener('click', () => {
-    document.querySelector('.corbeille').style.display = 'block'
+    var x = document.querySelector('.corbeille')
+    if (x.style.display == "none") {
+        x.style.display = "block"
+    } else {
+        x.style.display = "none"
+    }
 })
