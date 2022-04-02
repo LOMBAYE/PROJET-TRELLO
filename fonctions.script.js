@@ -95,10 +95,18 @@ function compareTimes(debut, fin) {
 }
 
 
-function compareTimes() {
-    var debut = debut.value.split('-'),
-        fin = fin.value.split('-')
-    console.log(debut, fin)
+function addTimeoutEvent(elem, time, bgColor) {
+    var timeout = setTimeout(function() {
+        elem.style.backgroundColor = bgColor
+        elem.removeEventListener('evt', foo)
+    }, time);
+    elem.addEventListener('evt', foo);
+
+    function foo() {
+        if (timeout)
+            clearTimeout(timeout);
+        alert("OK")
+    }
 }
 
 function compareDates(from, to) {

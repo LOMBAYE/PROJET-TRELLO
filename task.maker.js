@@ -88,14 +88,54 @@ btn.addEventListener('click', (e) => {
         document.querySelector('.modal').style.display = 'none';
         addTask(num);
     }
+    // tache devient si heure de depart arrive
 
-    setTimeout(() => {
-        console.log((heured - now))
-    }, 1000)
+    var hDebut = heured - now
+    var timeIsUp = heuref - now
+
+
+    // setTimeout(() => {
+    //     document.querySelectorAll('.note').forEach(element => {
+    //         element.style.backgroundColor = 'green'
+    //     });
+    //     clearTimeout(hDebut)
+    // }, hDebut);
+    // setTimeout(() => {
+    //     document.querySelectorAll('.note').forEach(element => {
+    //         element.style.backgroundColor = 'grey'
+    //     });
+    //     clearTimeout(hFin)
+    // }, timeIsUp);
+
+    // document.querySelectorAll('.note').forEach((el) => {
+
+
+    //     setTimeout(() => {
+    //         // hDebut -= 1000
+
+    //         // if (hDebut == 0) {
+    //         el.style.backgroundColor = 'green'
+    //             // clearInterval(rebours)
+    //             // }
+
+    //     }, hDebut);
+    //     setTimeout(() => {
+    //         // timeIsUp -= 1000
+    //         // if (timeIsUp == 0) {
+    //         el.style.backgroundColor = 'grey'
+    //             // clearInterval(reboursFin)
+    //             // }
+    //     }, timeIsUp);
+    // })
+    var vert = 'green',
+        gris = 'grey'
+    document.querySelectorAll('.note').forEach(element => addTimeoutEvent(element, hDebut, vert))
+    document.querySelectorAll('.note').forEach(element => addTimeoutEvent(element, timeIsUp, gris))
+
+    // addTimeoutEvent(document.querySelector('.note'), hDebut)
 })
 
 function addTask(n) {
-
     const note = document.createElement('div');
     const backwards = document.createElement('span')
     const taskName = document.createElement('span')
@@ -122,7 +162,6 @@ function addTask(n) {
     note.appendChild(forwards)
 
     document.querySelector('#tache_1').appendChild(note)
-
 
     forwards.addEventListener('click', (e) => {
         var hj = e.target.parentElement.parentElement.parentElement.id,
