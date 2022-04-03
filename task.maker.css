@@ -6,12 +6,13 @@
 }
 
 :root {
-    --primary-color: #ec76f4;
-    --secondary-color: #d0fd2e;
+    --primary-color: blue;
+    --secondary-color: rgba(255, 0, 0, 0.693);
+    --duration: 2s;
 }
 
 body {
-    font-family: 'arial', sans-serif;
+    font-family: 'Bold 700 Italic', sans-serif;
     transition: transform 0.5s ease;
     height: 100vh;
 }
@@ -19,7 +20,7 @@ body {
 .container {
     height: 100vh;
     overflow: hidden;
-    background-image: url(../photos/250322-Stack-Overflow-Picture-Perfect-Images-2048x1075.jpg);
+    background-image: url(../photos/kelly-sikkema-e0djo08-Ev8-unsplash.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     position: relative;
@@ -50,33 +51,50 @@ body {
     display: grid;
     grid-gap: 1%;
     grid-template-rows: auto 7fr;
-    /* right: 50px; */
     position: absolute;
     top: 7%;
     right: 2%;
     text-align: center;
-    /* transform: translateX(110%); */
+    z-index: 1000;
     color: white;
     background: var(--primary-color);
     display: none;
+    animation-name: animate-corbeille;
+    animation-duration: var(--duration);
+}
+
+@keyframes animate-corbeille {
+    0% {
+        opacity: 0;
+        transform: translate(30px, -40px);
+        transform: rotate(180deg);
+    }
+    50% {
+        opacity: 0.5;
+        width: 50%;
+        height: 50%;
+        background: var(--secondary-color);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-30px, 40px);
+        transform: rotate(0);
+    }
 }
 
 h2 {
     color: var(--primary-color);
-    border-bottom: 1px solid var(--primary-color);
+    /* border-bottom: 1px solid var(--primary-color); */
     text-decoration: underline;
     background-color: #f7eef7;
 }
 
-.header.show-corbeille {
-    transform: translateX(+110%);
-}
 
-.toggle:hover~.corbeille {
+/* .toggle:hover~.corbeille {
     right: 100px;
     transform: scale(1.1);
-    background-color: #d0fd2e;
-}
+    background-color: var(--secondary-color);
+} */
 
 .toggle:hover {
     background: var(--primary-color);
@@ -123,6 +141,7 @@ h2 {
 }
 
 .delete {
+    font-size: larger;
     position: absolute;
     cursor: pointer;
     margin-top: -32px;
@@ -145,6 +164,18 @@ h2 {
     width: 20%;
     height: 100%;
     margin: 1%;
+    animation-name: animate-column;
+    animation-duration: var(--duration);
+}
+
+@keyframes animate-column {
+    from {
+        transform: translate(50px, -60px);
+        /* transform: rotate3d(40deg, 90deg, 0); */
+    }
+    to {
+        transform: translate(-50px, 60px);
+    }
 }
 
 .column:first-child .task .note .backwards {
@@ -175,12 +206,22 @@ h2 {
 .modal {
     width: 100%;
     height: 100%;
-    /* color: white; */
     position: absolute;
     top: 0;
     z-index: 1;
     display: none;
     background-color: rgba(0, 0, 0, 0.5);
+    animation-name: animate-modal;
+    animation-duration: var(--duration);
+}
+
+@keyframes animate-modal {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .couche {
@@ -253,6 +294,23 @@ textarea:hover {
     cursor: pointer;
 }
 
+.ajouter {
+    border-radius: 5px;
+}
+
 .ajouter:hover {
     transform: scale(1.1);
+}
+
+h3 {
+    position: absolute;
+    width: auto;
+    height: 80vh;
+    padding: 10px;
+    bottom: 2%;
+    right: 0;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    color: white;
 }

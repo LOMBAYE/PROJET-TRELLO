@@ -13,15 +13,15 @@ function disableAddTaskButton(n) {
 function getColor(n) {
     switch (n) {
         case 1:
-            return '#d0fd2e'
+            return ''
         case 2:
-            return '#84a5f6'
+            return 'red'
         case 3:
-            return '#ec76f4'
+            return 'blue'
         case 4:
-            return '#ddfabf'
+            return 'grey'
         case 5:
-            return '#3f87a6'
+            return 'rgb(0, 136, 255)'
         default:
             return '#f69344'
     }
@@ -29,44 +29,6 @@ function getColor(n) {
 // 
 function ConfirmerSuppression() {
 
-}
-
-function deleteCol() {
-    setTimeout(function() {
-            document.querySelector('.delete').parent.parentElement.remove();
-        }, 2000)
-        // darken('column_' + n);
-}
-
-function deleteColumn() {
-
-
-    setTimeout(function() {
-        target.remove();
-    }, 2000)
-    darken();
-}
-// 
-function darken() {
-    // var target = document.getElementById(idtarget);
-    var effect = setInterval(function() {
-        if (!target.style.opacity) {
-            target.style.opacity = 1;
-        }
-        if (target.style.opacity > 0) {
-            target.style.opacity = 0.3;
-        } else {
-            clearInterval(effect);
-        }
-    }, 200)
-}
-// 
-function moveElementTo(element, from, to) {
-    //Element
-    //position actuelle
-    //position finale
-    from.removeChild(element)
-    element.appendChild(to)
 }
 
 function addTimeoutEvent(elem, time, bgColor) {
@@ -79,14 +41,12 @@ function addTimeoutEvent(elem, time, bgColor) {
     function foo() {
         if (timeout)
             clearTimeout(timeout);
-        // alert("OK")
     }
 }
 
 function rafraichir() {
     const allTitle = document.querySelectorAll('.titre')
     const allColumn = document.querySelectorAll('.column')
-
     allTitle.forEach((element, i) => {
         element.placeholder = 'Title....' + (i + 1)
         nbr = (i + 1)
@@ -95,6 +55,16 @@ function rafraichir() {
         element.id = 'column_' + (i + 1)
         nbr = (i + 1)
     })
+}
 
-
+function notification(msg = 'Colonne supprimee ', bgColor = 'green') {
+    setTimeout(() => {
+        h3 = document.querySelector('h3')
+        P = document.createElement('p');
+        // P.classList.add('general')
+        P.style.backgroundColor = bgColor
+        P.innerText = msg
+        h3.appendChild(P);
+        setTimeout(() => h3.removeChild(P), 3000);
+    }, 2000);
 }

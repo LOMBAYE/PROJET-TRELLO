@@ -22,6 +22,7 @@ generators[0].addEventListener('click', function() {
     nbr++
     addColumn();
     rafraichir()
+    notification('Nouvelle colonne ajoutee')
 })
 generators[1].addEventListener('click', function() {
     document.querySelector('.modal').style.display = 'block';
@@ -50,25 +51,26 @@ function addColumn() {
         taches.setAttribute('id', 'tache_' + nbr)
         html.style.backgroundColor = getColor(nbr)
         delButton.innerHTML = 'X'
-        delButton.style.backgroundColor = getColor(2)
+            // delButton.style.backgroundColor = getColor(2)
         html.appendChild(title)
         html.appendChild(taches)
         taches.appendChild(delButton)
         main.appendChild(html)
 
-        //    closest p or div or input might be useful
         delButton.addEventListener('click', (e) => {
             if (e.target.parentElement.parentElement.id === 'column_1') {
                 if (main.childElementCount > 1) {
                     e.preventDefault();
                 } else {
                     e.target.parentElement.parentElement.remove()
+                    notification()
                 }
             } else {
                 setTimeout(() => {
                     e.target.parentElement.parentElement.remove()
                     rafraichir()
                 }, 1000)
+                notification()
             }
         })
 
@@ -80,8 +82,14 @@ btn.addEventListener('click', (e) => {
     const now = Date.parse(new Date())
     var heuref = Date.parse(`${jour.value} ${fin.value}`)
 
-    if (textarea.value === '' || heured > heuref || now > heured || jour.value === '') {
+    if (textarea.value.trim === '' || heured > heuref || now > heured || jour.value === '') {
         e.preventDefault();
+        textarea.style.color = 'red'
+        textarea.innerHTML = 'Verifiez les valeurs saisies'
+        textarea.addEventListener('click', () => {
+            textarea.style.color = 'black'
+            textarea.innerHTML = ''
+        })
     } else {
         num++
         document.querySelector('.modal').style.display = 'none';
@@ -139,6 +147,7 @@ function addTask(n) {
     // suppression tache
     document.getElementById('note' + num).addEventListener('dblclick', () => {
         removedTasks.appendChild(document.getElementById('note' + num))
+        notification('Tache deplacee vers la corbeille')
         forwards.style.visibility = 'hidden'
         backwards.style.visibility = 'hidden'
     })
