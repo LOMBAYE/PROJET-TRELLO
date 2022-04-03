@@ -13,17 +13,17 @@ function disableAddTaskButton(n) {
 function getColor(n) {
     switch (n) {
         case 1:
-            return ''
+            return '#d0fd2e'
         case 2:
-            return 'red'
+            return '#84a5f6'
         case 3:
-            return 'black'
+            return '#ec76f4'
         case 4:
-            return 'green'
+            return '#ddfabf'
         case 5:
-            return 'blue'
+            return '#3f87a6'
         default:
-            return 'yellow'
+            return '#f69344'
     }
 }
 // 
@@ -44,11 +44,11 @@ function deleteColumn() {
     setTimeout(function() {
         target.remove();
     }, 2000)
-    darken('column_' + n);
+    darken();
 }
 // 
-function darken(idtarget) {
-    var target = document.getElementById(idtarget);
+function darken() {
+    // var target = document.getElementById(idtarget);
     var effect = setInterval(function() {
         if (!target.style.opacity) {
             target.style.opacity = 1;
