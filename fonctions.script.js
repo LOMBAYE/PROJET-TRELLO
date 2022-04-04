@@ -57,14 +57,33 @@ function rafraichir() {
     })
 }
 
-function notification(msg = 'Colonne supprimee ', bgColor = 'green') {
+function notification(msg = 'Nouvelle colonne ajoutee ', bgColor = 'green') {
     setTimeout(() => {
         h3 = document.querySelector('h3')
         P = document.createElement('p');
-        // P.classList.add('general')
         P.style.backgroundColor = bgColor
         P.innerText = msg
         h3.appendChild(P);
-        setTimeout(() => h3.removeChild(P), 3000);
+        setTimeout(() => h3.removeChild(P), 2000);
     }, 2000);
+}
+
+function fadeOut(e) {
+    var effect = setInterval(function() {
+        if (!e.target.parentElement.parentElement.style.opacity) {
+            e.target.parentElement.parentElement.style.opacity = 1;
+        }
+        if (e.target.parentElement.parentElement.style.opacity > 0) {
+            e.target.parentElement.parentElement.style.opacity = 0.3;
+        } else {
+            clearInterval(effect);
+        }
+    }, 200)
+}
+
+function getIdOfParentColumn(e) {
+    var id = e.target.parentElement.parentElement.parentElement.id,
+        idSplit = id.split('_'),
+        idEntier = parseInt(idSplit[1])
+    return idEntier;
 }

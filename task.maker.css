@@ -8,6 +8,7 @@
 :root {
     --primary-color: blue;
     --secondary-color: rgba(255, 0, 0, 0.693);
+    --darken-modal: rgba(0, 0, 0, 0.5);
     --duration: 2s;
 }
 
@@ -55,7 +56,7 @@ body {
     top: 7%;
     right: 2%;
     text-align: center;
-    z-index: 1000;
+    z-index: 2;
     color: white;
     background: var(--primary-color);
     display: none;
@@ -126,18 +127,29 @@ h2 {
 
 .note {
     display: grid;
-    grid-template-columns: auto auto auto;
-    justify-content: space-between;
-    justify-items: center;
-    align-items: center;
+    grid-template-rows: 1fr 2fr;
+    padding: 1%;
     background-color: var(--primary-color);
-    /* grid-template-rows: repeat(auto-fill, minmax(100%, max-content)); */
-    /* color: white; */
-    border: 1px solid white;
+    color: white;
+    border: 1px solid var(--darken-modal);
     height: 20%;
     font-size: 1.5rem;
     font-weight: bold;
     width: 100%;
+}
+
+.supRestaurer {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+}
+
+.containName {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
 }
 
 .delete {
@@ -157,7 +169,7 @@ h2 {
 }
 
 .column {
-    border: 2px solid rgba(0, 0, 0, 0.2);
+    border: 2px solid;
     background-image: url(../photos/mylogo-removebg-preview.png);
     background-position: center;
     background-repeat: no-repeat;
@@ -210,7 +222,7 @@ h2 {
     top: 0;
     z-index: 1;
     display: none;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--darken-modal);
     animation-name: animate-modal;
     animation-duration: var(--duration);
 }
@@ -239,6 +251,7 @@ h2 {
     grid-template-rows: 1fr 6fr;
     height: 60%;
     width: 30%;
+    z-index: 3;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
@@ -256,7 +269,6 @@ h2 {
 .exit {
     cursor: pointer;
     font-size: larger;
-    /* background-color: var(--primary-color); */
 }
 
 .exit:hover {
@@ -307,10 +319,92 @@ h3 {
     width: auto;
     height: 80vh;
     padding: 10px;
-    bottom: 2%;
+    bottom: 3%;
     right: 0;
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
+}
+
+p {
     color: white;
+    animation-name: animate-notification;
+    animation-duration: var(--duration);
+}
+
+@keyframes animate-notification {
+    from {
+        transform: rotate(360deg);
+    }
+    to {
+        transform: rotate(0);
+    }
+}
+
+.confirmation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--darken-modal);
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.tableau {
+    display: grid;
+    grid-template-rows: 1fr 2fr;
+    grid-gap: 5%;
+    border: 5px solid;
+    border-radius: 5px;
+    background-color: black;
+    padding: 50px;
+    font-size: larger;
+    color: #fff;
+    animation-name: animate-confirm;
+    animation-duration: var(--duration);
+}
+
+@keyframes animate-confirm {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+h4 {
+    margin-top: -10%;
+}
+
+.choix {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-evenly;
+}
+
+.oui {
+    cursor: pointer;
+}
+
+.oui:hover {
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+
+.non {
+    cursor: pointer;
+}
+
+.non:hover {
+    transform: scale(1.1);
+    text-decoration: underline;
+}
+
+small {
+    color: red;
 }

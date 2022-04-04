@@ -11,7 +11,8 @@ const generators = document.querySelectorAll('.generator'),
     form = document.querySelector('form'),
     btn = document.querySelector('.ajouter'),
     btn_toggle = document.querySelector('.toggle'),
-    removedTasks = document.querySelector('.removedTasks')
+    removedTasks = document.querySelector('.removedTasks'),
+    confirmer = document.querySelector('.confirmation')
 
 let nbr = 0;
 let num = 0;
@@ -22,7 +23,6 @@ generators[0].addEventListener('click', function() {
     nbr++
     addColumn();
     rafraichir()
-    notification('Nouvelle colonne ajoutee')
 })
 generators[1].addEventListener('click', function() {
     document.querySelector('.modal').style.display = 'block';
@@ -57,20 +57,24 @@ function addColumn() {
         taches.appendChild(delButton)
         main.appendChild(html)
 
+        notification()
+
         delButton.addEventListener('click', (e) => {
             if (e.target.parentElement.parentElement.id === 'column_1') {
                 if (main.childElementCount > 1) {
                     e.preventDefault();
                 } else {
                     e.target.parentElement.parentElement.remove()
-                    notification()
+                    notification('Colonne Supprimee', 'red')
                 }
             } else {
+                // confirmer.style.display = 'block'
                 setTimeout(() => {
                     e.target.parentElement.parentElement.remove()
                     rafraichir()
                 }, 1000)
-                notification()
+                fadeOut(e)
+                notification('Colonne Supprimee', 'red')
             }
         })
 
@@ -82,18 +86,25 @@ btn.addEventListener('click', (e) => {
     const now = Date.parse(new Date())
     var heuref = Date.parse(`${jour.value} ${fin.value}`)
 
-    if (textarea.value.trim === '' || heured > heuref || now > heured || jour.value === '') {
+    if (textarea.value.trim() === '' || heured > heuref || now > heured || jour.value === '') {
         e.preventDefault();
-        textarea.style.color = 'red'
-        textarea.innerHTML = 'Verifiez les valeurs saisies'
-        textarea.addEventListener('click', () => {
-            textarea.style.color = 'black'
-            textarea.innerHTML = ''
-        })
+        if (textarea.value.trim() === '') {
+            textarea.nextElementSibling.innerHTML = 'Champ obligatoire'
+        }
+        if (jour.value === '') {
+            jour.nextElementSibling.innerHTML = 'Entrez une date'
+        }
+        if (heured > heuref) {
+            fin.nextElementSibling.innerHTML = 'Heure de depart doit etre anterieure'
+        }
+        if (now > heured) {
+            debut.nextElementSibling.innerHTML = 'Heure depassee'
+        }
     } else {
         num++
         document.querySelector('.modal').style.display = 'none';
         addTask(num);
+        notification('Tache Ajoutee', 'blue')
     }
     //  alerte si heure de debut ou fin arrive 
     var alerteDebut = heured - now
@@ -103,7 +114,18 @@ btn.addEventListener('click', (e) => {
 })
 
 function addTask(n) {
-    const note = document.createElement('div');
+    const note = document.createElement('div'),
+        supRestaurer = document.createElement('div'),
+        restaurer = document.createElement('span'),
+        supTache = document.createElement('span')
+    supTache.innerHTML = 'sup'
+    restaurer.innerHTML = 'res'
+    supRestaurer.classList.add('supRestaurer')
+    supRestaurer.append(restaurer, supTache)
+
+
+    const containName = document.createElement('div')
+    containName.classList.add('containName')
     const backwards = document.createElement('span')
     const taskName = document.createElement('span')
     const forwards = document.createElement('span')
@@ -119,37 +141,38 @@ function addTask(n) {
     taskName.style.cursor = 'pointer'
     note.classList.add('note')
     note.setAttribute('id', 'note' + n)
-    backwards.setAttribute('id', 'backwards' + n)
+    restaurer.setAttribute('id', 'restaurer' + n)
     taskName.setAttribute('id', 'taskName' + n)
-    forwards.setAttribute('id', 'forwards' + n)
+    supTache.setAttribute('id', 'supTache' + n)
 
-    note.appendChild(backwards)
-    note.appendChild(taskName)
-    note.appendChild(forwards)
+    containName.append(backwards, taskName, forwards)
+    note.appendChild(supRestaurer)
+    note.appendChild(containName)
 
     document.querySelector('#tache_1').appendChild(note)
 
     forwards.addEventListener('click', (e) => {
-        var hj = e.target.parentElement.parentElement.parentElement.id,
-            idSplt = hj.split('_'),
-            idEntier = parseInt(idSplt[1])
-        var suivant = document.getElementById('column_' + (idEntier + 1))
+        var suivant = document.getElementById('column_' + (getIdOfParentColumn(e) + 1))
         suivant.lastChild.appendChild((note))
     })
     backwards.addEventListener('click', (e) => {
-        var hj = e.target.parentElement.parentElement.parentElement.id,
-            idSplt = hj.split('_'),
-            idEntier = parseInt(idSplt[1]),
-            precedent = document.getElementById('column_' + (idEntier - 1))
+        precedent = document.getElementById('column_' + (getIdOfParentColumn(e) - 1))
         precedent.lastChild.appendChild((note))
     })
 
     // suppression tache
-    document.getElementById('note' + num).addEventListener('dblclick', () => {
-        removedTasks.appendChild(document.getElementById('note' + num))
-        notification('Tache deplacee vers la corbeille')
+    document.getElementById('note' + num).addEventListener('dblclick', (e) => {
+        var idColumnDorigine = getIdOfParentColumn(e)
+        removedTasks.appendChild(e.target.parentElement)
+        notification('Tache deplacee vers la corbeille', 'red')
         forwards.style.visibility = 'hidden'
         backwards.style.visibility = 'hidden'
+            // backwards.addEventListener('dblclick', () => {
+            //     alert(idColumnDorigine)
+            //         // console.log(e.target.parentElement.parentElement)
+            //     removedTasks.removeChild(document.getElementById('note1'))
+            //         // document.getElementById('column_' + idColumnParent).appendChild(document.getElementById('note1'))
+            // })
     })
 }
 

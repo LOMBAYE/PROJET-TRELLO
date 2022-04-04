@@ -43,25 +43,37 @@
                     <form action="">
                         <span class="info">Informations de la tache</span>
                         <textarea name="textarea" placeholder="Ajouter une nouvelle tache"></textarea>
+                        <small></small>
                         <div class="temps">
                             <label for="jour">Date</label>
                             <input type="date" class="jour" name="jour">
+                            <small></small>
                         </div>
                         <div class="temps">
                             <label for="debut">Heure de debut</label>
                             <input type="time" name="debut" id="debut">
+                            <small></small>
                         </div>
                         <div class="temps">
                             <label for="fin">Heure de fin</label>
                             <input type="time" name="fin" id="fin">
+                            <small></small>
                         </div>
                         <button class="ajouter" type="button">Ajouter</button>
                     </form>
                 </div>
             </div>
         </div>
-        <h3>
-        </h3>
+        <div class="confirmation">
+            <div class="tableau">
+                <h4>Voulez vous vraiment supprimer ?</h4>
+                <div class="choix">
+                    <div class="oui">OUI</div>
+                    <div class="non">NON</div>
+                </div>
+            </div>
+        </div>
+        <h3></h3>
     </div>
     <script src="task.maker.js"></script>
     <script src="fonctions.script.js"></script>
