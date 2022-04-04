@@ -118,10 +118,12 @@ function addTask(n) {
         supRestaurer = document.createElement('div'),
         restaurer = document.createElement('span'),
         supTache = document.createElement('span')
+    restaurer.setAttribute('class', 'restaurer')
     supTache.innerHTML = 'sup'
     restaurer.innerHTML = 'res'
     supRestaurer.classList.add('supRestaurer')
     supRestaurer.append(restaurer, supTache)
+    restaurer.style.visibility = 'hidden'
 
 
     const containName = document.createElement('div')
@@ -141,7 +143,7 @@ function addTask(n) {
     taskName.style.cursor = 'pointer'
     note.classList.add('note')
     note.setAttribute('id', 'note' + n)
-    restaurer.setAttribute('id', 'restaurer' + n)
+        // restaurer.setAttribute('id', 'restaurer' + n)
     taskName.setAttribute('id', 'taskName' + n)
     supTache.setAttribute('id', 'supTache' + n)
 
@@ -161,19 +163,25 @@ function addTask(n) {
     })
 
     // suppression tache
-    document.getElementById('note' + num).addEventListener('dblclick', (e) => {
+    supTache.addEventListener('dblclick', (e) => {
         var idColumnDorigine = getIdOfParentColumn(e)
-        removedTasks.appendChild(e.target.parentElement)
+        removedTasks.appendChild(e.target.parentElement.parentElement)
         notification('Tache deplacee vers la corbeille', 'red')
+        supTache.style.visibility = 'hidden'
         forwards.style.visibility = 'hidden'
         backwards.style.visibility = 'hidden'
-            // backwards.addEventListener('dblclick', () => {
-            //     alert(idColumnDorigine)
-            //         // console.log(e.target.parentElement.parentElement)
-            //     removedTasks.removeChild(document.getElementById('note1'))
-            //         // document.getElementById('column_' + idColumnParent).appendChild(document.getElementById('note1'))
-            // })
+        restaurer.style.visibility = 'visible'
+        restaurer.id = 'restaurer' + idColumnDorigine
+        document.getElementById('restaurer' + idColumnDorigine).addEventListener('dblclick', (e) => {
+            document.getElementById('column_' + idColumnDorigine).lastChild.appendChild(e.target.parentElement.parentElement)
+            notification('Tache restauree a son origine', 'yellow')
+            supTache.style.visibility = 'visible'
+            forwards.style.visibility = 'visible'
+            backwards.style.visibility = 'visible'
+            restaurer.style.visibility = 'hidden'
+        })
     })
+
 }
 
 btn_toggle.addEventListener('click', () => {
