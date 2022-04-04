@@ -13,21 +13,31 @@ function disableAddTaskButton(n) {
 function getColor(n) {
     switch (n) {
         case 1:
-            return ''
+            return 'blue'
         case 2:
             return 'red'
         case 3:
-            return 'blue'
+            return 'rgb(0, 136, 255)'
         case 4:
             return 'grey'
         case 5:
-            return 'rgb(0, 136, 255)'
+            return ''
         default:
             return '#f69344'
     }
 }
 // 
-function ConfirmerSuppression() {
+function ConfirmerSuppression(n) {
+    switch (n) {
+        case 1:
+            return true
+            break;
+        case 2:
+            return false;
+            break;
+        default:
+            break;
+    }
 
 }
 
@@ -58,14 +68,14 @@ function rafraichir() {
 }
 
 function notification(msg = 'Nouvelle colonne ajoutee ', bgColor = 'green') {
-    setTimeout(() => {
-        h3 = document.querySelector('h3')
-        P = document.createElement('p');
-        P.style.backgroundColor = bgColor
-        P.innerText = msg
-        h3.appendChild(P);
-        setTimeout(() => h3.removeChild(P), 2000);
-    }, 2000);
+    // setTimeout(() => {
+    h3 = document.querySelector('h3')
+    P = document.createElement('p');
+    P.style.backgroundColor = bgColor
+    P.innerText = msg
+    h3.appendChild(P);
+    setTimeout(() => h3.removeChild(P), 2000);
+    // }, 2000);
 }
 
 function fadeOut(e) {
@@ -86,4 +96,47 @@ function getIdOfParentColumn(e) {
         idSplit = id.split('_'),
         idEntier = parseInt(idSplit[1])
     return idEntier;
+}
+
+
+function confirm(div, message) {
+
+    const notif = document.createElement('div');
+    const contentNotif = document.createElement('div');
+    const bodytNotif = document.createElement('div');
+    const headerNotif = document.createElement('div');
+    const footerNotif = document.createElement('div');
+    let btnAnnuler = document.createElement('button');
+    let btnValider = document.createElement('button');
+
+    notif.className = "notif";
+    contentNotif.setAttribute('class', 'content-notif');
+    bodytNotif.setAttribute('class', 'body-notif');
+    headerNotif.setAttribute('class', 'header-notif');
+    footerNotif.setAttribute('class', 'footer-notif');
+    btnAnnuler.setAttribute('id', 'btn-annuler');
+    btnValider.setAttribute('id', 'btn-valider');
+
+    headerNotif.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i>`;
+    btnAnnuler.innerHTML = "Annuler";
+    btnValider.innerHTML = "Valider";
+    bodytNotif.textContent = message;
+
+    container.appendChild(notif);
+    contentNotif.append(headerNotif, bodytNotif, footerNotif);
+    footerNotif.append(btnValider, btnAnnuler);
+    notif.appendChild(contentNotif);
+
+    btnAnnuler.addEventListener('click', () => {
+        notif.style.display = "none";
+    });
+    btnValider.addEventListener('click', () => {
+        if (colonnes.length > 1 && div != colonnes[0]) {
+            div.remove();
+        } else if (colonnes.length == 1) {
+            div.remove();
+        }
+        notif.style.display = "none";
+        colonneArchive.appendChild(div);
+    });
 }

@@ -16,6 +16,7 @@ body {
     font-family: 'Bold 700 Italic', sans-serif;
     transition: transform 0.5s ease;
     height: 100vh;
+    position: relative;
 }
 
 .container {
@@ -28,21 +29,40 @@ body {
 }
 
 .header {
-    /* background-image: url(../photos/kelly-sikkema-e0djo08-Ev8-unsplash.jpg);
-    background-size: cover;
-    background-repeat: no-repeat; */
     display: grid;
     grid-template-columns: auto auto;
     align-items: center;
     justify-content: space-between;
     height: 10vh;
-    /* background-color: bisque; */
 }
 
 .toggle {
     font-size: 1.5rem;
     color: white;
     cursor: pointer;
+    animation-name: gauchedroite;
+    animation-duration: var(--duration);
+    animation-iteration-count: infinite;
+}
+
+.toggle:hover {
+    animation-play-state: paused;
+}
+
+@keyframes gauchedroite {
+    100%,
+    0% {
+        transform: translate(0);
+    }
+    50% {
+        transform: translate(-10px, 0);
+        transform: rotate(180deg);
+        background-color: red;
+    }
+    75% {
+        transform: translate(-10px, 10px);
+        transform: rotate(180deg);
+    }
 }
 
 .corbeille {
@@ -56,7 +76,7 @@ body {
     top: 7%;
     right: 2%;
     text-align: center;
-    z-index: 2;
+    /* z-index: 2; */
     color: white;
     background: var(--primary-color);
     display: none;
@@ -97,13 +117,10 @@ h2 {
     background-color: var(--secondary-color);
 } */
 
-.toggle:hover {
-    background: var(--primary-color);
-}
-
 .removedTasks {
     display: grid;
     border: 5px solid;
+    padding: 1rem;
 }
 
 .main {
@@ -132,13 +149,87 @@ h2 {
     display: grid;
     grid-template-rows: 1fr 2fr;
     padding: 1%;
-    background-color: var(--primary-color);
+    /* background-color: var(--primary-color); */
     color: white;
     border: 1px solid var(--darken-modal);
     height: 20%;
     font-size: 1.5rem;
     font-weight: bold;
     width: 100%;
+    position: relative;
+}
+
+
+/* .overview {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-between;
+    position: absolute;
+    /* left: 0; */
+
+
+/* right: 0; */
+
+
+/* bottom: 0; */
+
+
+/* width: 100%;
+    /* right: 0; */
+
+
+/* background-color: #fff; */
+
+
+/* color: black;
+    padding: 1rem;
+    height: 100%; */
+
+*
+/* transform: translateY(80%); */
+
+
+/* } */
+
+
+/* .note:hover .overview {
+    transform: translateY(0);
+} */
+
+.supTache,
+.restaurer,
+.forwards,
+.backwards {
+    cursor: pointer;
+}
+
+.backwards,
+.forwards {
+    animation-name: scintiller;
+    animation-duration: var(--duration);
+    animation-iteration-count: infinite;
+}
+
+.backwards,
+.forwards:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scintiller {
+    100%,
+    0% {
+        /* background-color: blue; */
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.1);
+        background-color: none;
+    }
+    80% {
+        opacity: 0.8;
+        transform: scale(0.8);
+    }
 }
 
 .supRestaurer {
@@ -353,6 +444,7 @@ p {
     justify-content: center;
     align-items: center;
     display: none;
+    position: fixed;
 }
 
 .tableau {
@@ -388,19 +480,12 @@ h4 {
     justify-content: space-evenly;
 }
 
-.oui {
-    cursor: pointer;
-}
-
-.oui:hover {
-    transform: scale(1.1);
-    text-decoration: underline;
-}
-
+.oui,
 .non {
     cursor: pointer;
 }
 
+.oui,
 .non:hover {
     transform: scale(1.1);
     text-decoration: underline;

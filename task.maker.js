@@ -26,8 +26,10 @@ generators[0].addEventListener('click', function() {
 })
 generators[1].addEventListener('click', function() {
     document.querySelector('.modal').style.display = 'block';
+    document.querySelector('form').reset()
     document.querySelector('.exit').addEventListener('click', () => {
         document.querySelector('.modal').style.display = 'none';
+
     })
 })
 
@@ -77,7 +79,6 @@ function addColumn() {
                 notification('Colonne Supprimee', 'red')
             }
         })
-
     }
 }
 btn.addEventListener('click', (e) => {
@@ -133,9 +134,9 @@ function addTask(n) {
     const forwards = document.createElement('span')
     forwards.setAttribute('class', 'forwards')
     backwards.setAttribute('class', 'backwards')
+    supTache.setAttribute('class', 'supTache')
+    restaurer.setAttribute('class', 'restaurer')
     taskName.setAttribute('class', 'taskName')
-    forwards.style.cursor = 'pointer'
-    backwards.style.cursor = 'pointer'
 
     backwards.innerHTML = '<<'
     forwards.innerHTML = '>>'
@@ -143,13 +144,22 @@ function addTask(n) {
     taskName.style.cursor = 'pointer'
     note.classList.add('note')
     note.setAttribute('id', 'note' + n)
-        // restaurer.setAttribute('id', 'restaurer' + n)
     taskName.setAttribute('id', 'taskName' + n)
     supTache.setAttribute('id', 'supTache' + n)
 
+    // const overview = document.createElement('div'),
+    //     ovleft = document.createElement('span'),
+    //     ovcentre = document.createElement('span'),
+    //     ovright = document.createElement('span')
+    // console.log(ovcentre, ovright)
+    // ovleft.innerHTML = debut.value
+    // ovcentre.innerHTML = jour.value
+    // ovright.innerHTML = fin.value
+    // overview.appendChild(ovleft, ovcentre, ovright)
+    // overview.setAttribute('class', 'overview')
+
     containName.append(backwards, taskName, forwards)
-    note.appendChild(supRestaurer)
-    note.appendChild(containName)
+    note.append(supRestaurer, containName)
 
     document.querySelector('#tache_1').appendChild(note)
 
@@ -173,12 +183,21 @@ function addTask(n) {
         restaurer.style.visibility = 'visible'
         restaurer.id = 'restaurer' + idColumnDorigine
         document.getElementById('restaurer' + idColumnDorigine).addEventListener('dblclick', (e) => {
-            document.getElementById('column_' + idColumnDorigine).lastChild.appendChild(e.target.parentElement.parentElement)
-            notification('Tache restauree a son origine', 'yellow')
-            supTache.style.visibility = 'visible'
-            forwards.style.visibility = 'visible'
-            backwards.style.visibility = 'visible'
-            restaurer.style.visibility = 'hidden'
+            if (document.getElementById('column_' + idColumnDorigine)) {
+                document.getElementById('column_' + idColumnDorigine).lastChild.appendChild(e.target.parentElement.parentElement)
+                notification('Tache restauree a son origine', 'yellow')
+                supTache.style.visibility = 'visible'
+                forwards.style.visibility = 'visible'
+                backwards.style.visibility = 'visible'
+                restaurer.style.visibility = 'hidden'
+            } else {
+                document.getElementById('column_1').lastChild.appendChild(e.target.parentElement.parentElement)
+                notification('Tache restauree a son origine', 'yellow')
+                supTache.style.visibility = 'visible'
+                forwards.style.visibility = 'visible'
+                backwards.style.visibility = 'visible'
+                restaurer.style.visibility = 'hidden'
+            }
         })
     })
 
